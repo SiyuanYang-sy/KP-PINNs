@@ -62,7 +62,7 @@ class DNN(torch.nn.Module):
         return out
 
 
-# the physics-guided neural network
+# the physics informed neural network
 class PhysicsInformedNN():
     def __init__(self, X, u, layers):
 

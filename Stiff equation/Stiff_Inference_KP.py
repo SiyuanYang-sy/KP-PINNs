@@ -28,7 +28,7 @@ print(device)
 
 
 # %%
-# Physics-informed Neural Networks
+# Physics Informed Neural Networks
 # the deep neural network
 class DNN(torch.nn.Module):
     def __init__(self, layers):
