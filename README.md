@@ -1,11 +1,12 @@
-# KP-PINNs: Kernel Packet Accelerated Physics Informed Neural Networks
+# ⚙️ KP-PINNs: Kernel Packet Accelerated Physics Informed Neural Networks
 
-This repository contains the official implementation of the paper:
+This repository contains the official PyTorch implementation of the paper:
 
-**KP-PINNs: Kernel Packet Accelerated Physics Informed Neural Networks**  
-Accepted to *IJCAI 2025 (34th International Joint Conference on Artificial Intelligence)*
+> **KP-PINNs: Kernel Packet Accelerated Physics Informed Neural Networks**  
+> Accepted to *IJCAI 2025 (34th International Joint Conference on Artificial Intelligence)*  
+> 📄 [Read the paper](https://arxiv.org/abs/2506.08563)
 
-📄 **[Read the paper](https://arxiv.org/abs/2506.08563)** 
+---
 
 ## 📝 Abstract
 
