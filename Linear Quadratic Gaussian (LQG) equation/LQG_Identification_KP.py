@@ -335,19 +335,27 @@ plt.legend()
 
 #%%
 # Visualization - μ
-fig = plt.figure()
+fig = plt.figure(figsize=(5, 4))
 w = np.linspace(0, model.iter, model.iter)
-fs = 16
+fs = 20
 plt.xlabel('Iter', fontsize=fs)
 plt.ylabel('$\mu$', fontsize=fs)
 plt.title('${\mu}_{pred}$: %.5f, ${\mu}_{true}$: %.5f' % (model.Mu[-1], mu_exact), fontsize=fs)
 plt.plot(w, np.full_like(model.Mu, mu_exact), color='silver', linewidth=5, label='Truth')
 plt.plot(w, model.Mu, label='Prediction')
-plt.legend()
+plt.tick_params(axis='both', which='major', labelsize=fs)
+plt.legend(fontsize=fs)
+plt.xticks(fontsize=fs)
+plt.yticks(fontsize=fs)
 
 # plt.savefig('μ.png', dpi=600)
-# plt.savefig('μ.pdf', dpi=600)
+# plt.savefig('μ.pdf', dpi=600, bbox_inches='tight')
 
+# #%% Save the data of the above figure
+# np.savez('data_LQG_KP12_inverse.npz',
+#          iter=model.iter,
+#          Mu=model.Mu,
+#          )
 
 # %%
 plt.show()

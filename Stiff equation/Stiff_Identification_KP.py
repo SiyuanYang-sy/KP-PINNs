@@ -297,33 +297,42 @@ plt.legend()
 
 # %%
 # Visualization - lamda
-plt.rcParams.update({'font.size': 16})
-fig = plt.figure()
+plt.rcParams.update({'font.size': 20})
+fig = plt.figure(figsize=(5, 4))
 w = np.linspace(0, model.iter, model.iter)
-plt.xlabel('Iter')
-plt.ylabel('$\lambda$')
+plt.xlabel('Iter', fontsize=20)
+plt.ylabel('$\lambda$', fontsize=20)
 plt.title('${\lambda}_{pred}$: %.5f, ${\lambda}_{true}$: %.5f' % (model.Lamda[-1], lamda_exact))
 plt.plot(w, np.full_like(model.Lamda, lamda_exact), color='silver', linewidth=5, label='Truth')
 plt.plot(w, model.Lamda, label='Prediction')
-plt.tick_params(axis='both', which='major', labelsize=16)
+plt.tick_params(axis='both', which='major', labelsize=20)
 plt.legend()
 
-# plt.savefig('lambda.png', dpi=600)
-# plt.savefig('lambda.pdf', dpi=600)
+# plt.savefig('lambda.png', dpi=600, bbox_inches='tight')
+# plt.savefig('lambda.pdf', dpi=600, bbox_inches='tight')
 
 # %%
 # Visualization - u(x)
-fig = plt.figure()
-plt.xlabel('$t$', fontsize=18)
-plt.ylabel('$u(t)$', fontsize=18)
+fig = plt.figure(figsize=(5, 4))
+plt.xlabel('$t$', fontsize=20)
+plt.ylabel('$u(t)$', fontsize=20)
 # plt.title('$u(t)$')
 plt.plot(X_star, u_star, color='silver', linewidth=5, label='Truth')
 plt.plot(X_star, u_pred, label='Prediction')
-plt.tick_params(axis='both', which='major', labelsize=16)
+plt.tick_params(axis='both', which='major', labelsize=20)
 plt.legend()
 
-# plt.savefig('u(t).png', dpi=600)
-# plt.savefig('u(t).pdf', dpi=600)
+# plt.savefig('u(t).png', dpi=600, bbox_inches='tight')
+# plt.savefig('u(t).pdf', dpi=600, bbox_inches='tight')
+
+# #%% Save the data of the above two figures
+# np.savez('data_stiff_KP32_inverse.npz',
+#          iter=model.iter,
+#          Lamda=model.Lamda,
+#          X_star=X_star,
+#          u_star=u_star,
+#          u_pred=u_pred
+#          )
 
 # %%
 # Visualization - f(x)

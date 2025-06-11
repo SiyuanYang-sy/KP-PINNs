@@ -15,6 +15,7 @@ from scipy.sparse.linalg import spsolve
 from KP_compute_APhi import KP_compute_APhi
 from matplotlib import cm
 import plotly.graph_objects as go
+from matplotlib.ticker import FormatStrFormatter
 
 
 # %%
@@ -345,23 +346,21 @@ plt.legend()
 
 # %%
 # Visualization - k
-fig = plt.figure()
+fig = plt.figure(figsize=(5, 4))
 w = np.linspace(0, model.iter, model.iter)
-fs = 16
+fs = 20
 plt.xlabel('Iter', fontsize=fs)
 plt.ylabel('$k$', fontsize=fs)
 plt.title('${k}_{pred}$: %.5f, ${k}_{true}$: %.5f' % (model.K[-1], k_exact), fontsize=fs)
 plt.plot(w, np.full_like(model.K, k_exact), color='silver', linewidth=5, label='Truth')
 plt.plot(w, model.K, label='Prediction')
 plt.tick_params(axis='both', which='major', labelsize=fs)
-
 plt.legend(fontsize=fs)
-
 plt.xticks(fontsize=fs)
 plt.yticks(fontsize=fs)
 
 # plt.savefig('k.png', dpi=600)
-# plt.savefig('k.pdf', dpi=600)
+# plt.savefig('k.pdf', dpi=600, bbox_inches='tight')
 
 # %%
 # Visualization - plot_surface
@@ -423,25 +422,27 @@ plt.tight_layout()
 
 # together
 
-fig, axs = plt.subplots(1, 3, figsize=(24, 8))
+fig, axs = plt.subplots(1, 3, figsize=(12, 6))   # (24, 8)
 
 h1 = axs[0].imshow(U_pred.T, interpolation='nearest', cmap='rainbow',
                    extent=[x.min(), x.max(), y.min(), y.max()],
                    origin='lower', aspect='equal')
 divider1 = make_axes_locatable(axs[0])
 cax1 = divider1.append_axes("right", size="5%", pad=0.10)
-cbar1 = fig.colorbar(h1, cax=cax1)
-cbar1.ax.tick_params(labelsize=22)
+# cbar1 = fig.colorbar(h1, cax=cax1)
+cbar1 = fig.colorbar(h1, cax=cax1, ticks=[-1.00, 0.00, 1.00])
+cbar1.ax.tick_params(labelsize=20)
+cbar1.ax.set_yticklabels(['-1.00', '0.00', '1.00'])
 
-axs[0].set_xlabel('$x$', size=22)
-axs[0].set_ylabel('$y$', size=22)
+axs[0].set_xlabel('$x$', size=20)
+axs[0].set_ylabel('$y$', size=20)
 
 # axs[0].plot(X_train[:,0], X_train[:,1], 'kx', label='Data (%d points)' % (X_train.shape[0]),
 #             markersize=4, clip_on=False, alpha=1.0)
 #
 # axs[0].legend(loc='upper center', bbox_to_anchor=(0.9, -0.05), ncol=5, frameon=False, prop={'size': 15})
-axs[0].set_title(r'\textbf{Prediction}', fontsize=22)
-axs[0].tick_params(labelsize=22)
+axs[0].set_title(r'\textbf{Prediction}', fontsize=20)
+axs[0].tick_params(labelsize=20)
 
 h2 = axs[1].imshow(Exact.T, interpolation='nearest', cmap='rainbow',
                    extent=[x.min(), x.max(), y.min(), y.max()],
@@ -449,17 +450,17 @@ h2 = axs[1].imshow(Exact.T, interpolation='nearest', cmap='rainbow',
 divider2 = make_axes_locatable(axs[1])
 cax2 = divider2.append_axes("right", size="5%", pad=0.10)
 cbar2 = fig.colorbar(h2, cax=cax2)
-cbar2.ax.tick_params(labelsize=22)
+cbar2.ax.tick_params(labelsize=20)
 
-axs[1].set_xlabel('$x$', size=22)
-axs[1].set_ylabel('$y$', size=22)
+axs[1].set_xlabel('$x$', size=20)
+axs[1].set_ylabel('$y$', size=20)
 
 # axs[1].plot(X_train[:,0], X_train[:,1], 'kx', label='Data (%d points)' % (X_train.shape[0]),
 #             markersize=4, clip_on=False, alpha=1.0)
 #
 # axs[1].legend(loc='upper center', bbox_to_anchor=(0.9, -0.05), ncol=5, frameon=False, prop={'size': 15})
-axs[1].set_title(r'\textbf{Truth}', fontsize=22)
-axs[1].tick_params(labelsize=22)
+axs[1].set_title(r'\textbf{Truth}', fontsize=20)
+axs[1].tick_params(labelsize=20)
 
 h3 = axs[2].imshow(np.abs(U_pred - Exact).T, interpolation='nearest', cmap='rainbow',
                    extent=[x.min(), x.max(), y.min(), y.max()],
@@ -467,22 +468,34 @@ h3 = axs[2].imshow(np.abs(U_pred - Exact).T, interpolation='nearest', cmap='rain
 divider3 = make_axes_locatable(axs[2])
 cax3 = divider3.append_axes("right", size="5%", pad=0.10)
 cbar3 = fig.colorbar(h3, cax=cax3)
-cbar3.ax.tick_params(labelsize=22)
+cbar3.ax.tick_params(labelsize=20)
+cbar3.ax.yaxis.set_major_formatter(FormatStrFormatter('%.5f'))
 
-axs[2].set_xlabel('$x$', size=22)
-axs[2].set_ylabel('$y$', size=22)
+axs[2].set_xlabel('$x$', size=20)
+axs[2].set_ylabel('$y$', size=20)
 
 # axs[2].plot(X_train[:,0], X_train[:,1], 'kx', label='Data (%d points)' % (X_train.shape[0]),
 #             markersize=4, clip_on=False, alpha=1.0)
 #
 # axs[2].legend(loc='upper center', bbox_to_anchor=(0.9, -0.05), ncol=5, frameon=False, prop={'size': 15})
-axs[2].set_title(r'\textbf{Absolute error}', fontsize=22)
-axs[2].tick_params(labelsize=22)
+axs[2].set_title(r'\textbf{Absolute error}', fontsize=20)
+axs[2].tick_params(labelsize=20)
 
 plt.tight_layout()
 
 # plt.savefig('u(x, y).png', dpi=600)
-# plt.savefig('u(x, y).pdf', dpi=600)
+# plt.savefig('u(x, y).pdf', dpi=600, bbox_inches='tight')
+
+
+# #%% Save the data of the above figure and k
+# np.savez('data_helmholtz_KP12_inverse.npz',
+#          iter=model.iter,
+#          K=model.K,
+#          x=x,
+#          y=y,
+#          U_pred=U_pred,
+#          Exact=Exact
+#          )
 
 plt.show()
 
